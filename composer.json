@@ -22,16 +22,13 @@
   ],
   "require": {
     "php": "^7.1 || ^8",
-    "monolog/monolog": "^2.2",
-    "symfony/cache": "^5",
-    "brenoroosevelt/habemus": "^1.1",
-    "brenoroosevelt/http": "^0",
     "league/oauth2-client": "^2"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.90",
-    "phpunit/phpunit": "^9.0",
-    "squizlabs/php_codesniffer": "3.5.*"
+    "phpunit/phpunit": "^6.5 || ^9.0",
+    "squizlabs/php_codesniffer": "3.5.*",
+    "middlewares/utils": "^2"
   },
   "config": {
     "process-timeout": 0,
