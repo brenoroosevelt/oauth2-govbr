@@ -127,7 +127,10 @@ class GovBrTest extends TestCase
         $this->assertStrContainsStr('govbr_confiabilidades', $query['scope']);
     }
 
-    public function testUserData(): void
+    /**
+     * @test
+     */
+    public function deveRetornarDadosDoUsuarios(): void
     {
         // arrange
         $response = [
@@ -148,7 +151,7 @@ class GovBrTest extends TestCase
         $govBr
             ->expects($this->any())
             ->method('fetchResourceOwnerDetails')
-            ->willReturn($this->returnValue($response));
+            ->will($this->returnValue($response));
 
         // act
         $accessToken = new AccessToken(['access_token' => 'mock_token']);
