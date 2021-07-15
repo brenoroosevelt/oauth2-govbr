@@ -37,12 +37,12 @@ final class Avatar
         unset($attributes['src']);
         $htmlAttributes = [];
         foreach ($attributes as $key => $value) {
-            $htmlAttributes[] = "$key =\"$value\"";
+            $htmlAttributes[] = "$key=\"$value\"";
         }
 
         return
             sprintf(
-                "<img src=\"data:%s;base64,%s\" %s ></img>",
+                "<img src=\"data:%s;base64,%s\" %s></img>",
                 $this->mimeType(),
                 $this->imageBase64(),
                 implode(' ', $htmlAttributes)

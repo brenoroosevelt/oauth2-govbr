@@ -13,6 +13,10 @@ Cliente OAuth2 para GovBr.
 composer brenoroosevelt/oauth2-govbr 
 ```
 
+## Guia de Integração
+
+https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
+
 ## Exemplo de Uso
 
 ```php
