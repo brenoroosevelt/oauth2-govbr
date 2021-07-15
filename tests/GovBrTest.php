@@ -148,7 +148,7 @@ class GovBrTest extends TestCase
         $govBr
             ->expects($this->any())
             ->method('fetchResourceOwnerDetails')
-            ->willReturn($response);
+            ->willReturn($this->returnValue($response));
 
         // act
         $accessToken = new AccessToken(['access_token' => 'mock_token']);
