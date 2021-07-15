@@ -1,12 +1,14 @@
 {
   "name": "brenoroosevelt/oauth2-govbr",
-  "description": "Gov.Br OAuth 2.0 Client Provider for The PHP League OAuth2-Client",
+  "description": "Cliente OAuth2 para Gov.br",
   "keywords": [
     "oauth",
     "oauth2",
     "client",
     "authorization",
     "govbr",
+    "gov.br",
+    "gov br",
     "sso",
     "idp",
     "governo brasil",
