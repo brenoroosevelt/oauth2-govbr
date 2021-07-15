@@ -211,7 +211,7 @@ class GovBrTest extends TestCase
         /** @phpstan-ignore-next-line */
         $govBr->shouldReceive('getAuthenticatedRequest')
             ->once()
-            ->andReturn(Factory::createRequest('GET', 'https://localhost/avatar'));
+            ->andReturn(Factory::getRequestFactory()->createRequest('GET', 'https://localhost/avatar'));
 
         /** @phpstan-ignore-next-line */
         $govBr->shouldReceive('getResponse')
