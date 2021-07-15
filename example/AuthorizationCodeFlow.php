@@ -47,7 +47,13 @@ final class AuthorizationCodeFlow
             return new Json(['error' => $e->getMessage()], 401); // Erro ao obter o Access Token
         }
 
-        $userGovBr = $this->govBr->getResourceOwner($accessToken); //Opcional: mais informações do usuário
+        // \o/ ... Já temos o Access Token ===> $accessToken
+
+        // Opcionalmente você pode requisitar mais informações do usuário
+        $userGovBr = $this->govBr->getResourceOwner($accessToken);
+
+        // Você pode ainda solicitar o avatar (foto)
+        // $avatar = $this->govBr->getAvatar($userGovBr);
 
         return new Json($userGovBr->toArray()); // Sua aplicação decide o que fazer com os dados obtidos
     }

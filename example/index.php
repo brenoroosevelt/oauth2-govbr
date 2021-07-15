@@ -36,7 +36,8 @@ require __DIR__ . '/../vendor/autoload.php';
  * https://seu-app-dominio.com.br
  * ----------------------------------------------------------------------
  * Ao final, você terá um container docker rodando com Apache e PHP 8.0.
- * Qualquer caminho (rota) no servidor irá executar esse arquivo.
+ * Não se preocupe com o roteamento dentro desse servidor, para facilitar
+ * qualquer caminho (rota) no servidor irá executar este arquivo index.php
  * ----------------------------------------------------------------------
  * Se precisar conferir o log do servidor:
  *
@@ -51,6 +52,7 @@ require __DIR__ . '/../vendor/autoload.php';
  * Atenção!:
  * - Os parâmetros abaixos são sigilosos, evite enviar esses valores para seu repositório git
  * - Ao invés de fixar no código, prefira obtê-los usando getenv(...)
+ * - Em ambiente de produção use GovBr::production(...), ou use o construtor da classe
  */
 $govBr = GovBr::staging([
     'clientId'      => 'XXXXXXXX', // Client ID fornecido pelo GovBr

@@ -3,15 +3,16 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt\OAuth2\Client\Test;
 
-use BrenoRoosevelt\OAuth2\Client\Avatar;
 use BrenoRoosevelt\OAuth2\Client\GovBrUser;
 use League\OAuth2\Client\Token\AccessToken;
+use PHPUnit\Framework\TestCase;
 
 class GovBrUserTest extends TestCase
 {
-    public function userData(): array
+    /** @test */
+    public function deveCriarUsuarioComDadosDoArray()
     {
-        return [
+        $userData = [
             'sub' => '99999999999',
             'name' => 'Cidadao Brasileiro',
             'email' => 'email@domain.com',
@@ -21,16 +22,10 @@ class GovBrUserTest extends TestCase
             'picture' => 'https://localhost/avatar',
             'profile' => 'https://localhost/userinfo'
         ];
-    }
-    /** @test */
-    public function deveCriarUsuarioComDadosDoArray()
-    {
-
         $accessToken = new AccessToken(['access_token' => 'token']);
-        $userData = $this->userData();
         $govBrUser = new GovBrUser($userData, $accessToken);
 
-        $id = '99999999999';
+        $id = $userData['sub'];
         $this->assertEquals($id, $govBrUser->getId());
         $this->assertEquals($id, $govBrUser->getCpf());
         $this->assertEquals('Cidadao Brasileiro', $govBrUser->getName());
@@ -41,5 +36,6 @@ class GovBrUserTest extends TestCase
         $this->assertFalse($govBrUser->phoneNumberVerified());
         $this->assertTrue($govBrUser->emailVerified());
         $this->assertArrayHasKey('cpf', $govBrUser->toArray());
+        $this->assertSame($accessToken, $govBrUser->token());
     }
 }
