@@ -13,6 +13,17 @@ Cliente OAuth2 para Gov.br.
 composer brenoroosevelt/oauth2-govbr 
 ```
 
+
+### Authorization Code Flow
+
+```php
+$provider = new \Chadhutchins\OAuth2\Client\Provider\Mailchimp([
+    'clientId'          => '{mailchimp-client-id}',
+    'clientSecret'      => '{mailchimp-client-secret}',
+    'redirectUri'       => 'https://example.com/callback-url',
+]);
+```
+
 ## Guia de Integração
 
 https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html

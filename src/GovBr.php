@@ -41,6 +41,22 @@ final class GovBr extends GenericProvider
         return md5(uniqid('govbr', true));
     }
 
+    public function getDefaultScopes(): array
+    {
+        return [
+            'openid',
+            'email',
+            'phone',
+            'profile',
+            'govbr_confiabilidades'
+        ];
+    }
+
+    public function getScopeSeparator(): string
+    {
+        return '+';
+    }
+
     /**
      * @inheritDoc
      */

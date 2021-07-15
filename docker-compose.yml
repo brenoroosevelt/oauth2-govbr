@@ -1,15 +1,13 @@
 version: '3.1'
 
 services:
-  dev:
-    container_name: app
-    image: webdevops/php-dev:8.0
+  example:
+    container_name: oauth_govbr
+    image: webdevops/php-apache-dev:8.0
     working_dir: /app
-    environment:
-      docker: "true"
-    command: php -S 0.0.0.0:8080 -t web
 
     volumes:
       - .:/app
     ports:
-      - 8080:8080
+      - 80:80
+      - 443:443
