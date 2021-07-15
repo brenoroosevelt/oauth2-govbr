@@ -40,7 +40,7 @@ final class AuthorizationCodeFlow
             return new Json(['error' => 'Invalid state'], 401);
         }
 
-        // Obtém o access Access Token usando o Authorization Code
+        // Obtém o Access Token usando o Authorization Code
         try {
             $accessToken = $this->govBr->getAccessToken(new AuthorizationCode(), ['code' => $authorizationCode]);
         } catch (Throwable $e) {
