@@ -14,26 +14,20 @@ composer brenoroosevelt/oauth2-govbr
 ```
 
 
-### Authorization Code Flow
+### Exemplo de Uso
 
 ```php
-$provider = new \Chadhutchins\OAuth2\Client\Provider\Mailchimp([
-    'clientId'          => '{mailchimp-client-id}',
-    'clientSecret'      => '{mailchimp-client-secret}',
-    'redirectUri'       => 'https://example.com/callback-url',
+use BrenoRoosevelt\OAuth2\Client\GovBr;
+
+$govBr =  new GovBr([
+    'clientId'      => 'XXXXXXXX', // Client ID fornecido pelo GovBr
+    'clientSecret'  => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
+    'redirectUri'   => "https://seu-app-dominio.com.br/seu-oauth-login" // Url de redirecionamento cadastrada no GovBr
 ]);
 ```
 
-## Guia de Integração
-
-https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html
-
 ## Exemplo de Uso
 
-```php
-<?php
-echo "ola mundo"; 
-```
 
 ## Ambientes
 
@@ -49,3 +43,5 @@ docker-compose up -d
 ```
 Depois disso, abra `http://localhost:8080` em seu browser.
 
+### Linkss
+ * Leia o [guia de integração](https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html) oficial.
