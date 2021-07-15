@@ -6,9 +6,9 @@ namespace BrenoRoosevelt\OAuth2\Client;
 use League\OAuth2\Client\Provider\GenericProvider;
 use League\OAuth2\Client\Token\AccessToken;
 
-final class GovBr extends GenericProvider
+class GovBr extends GenericProvider
 {
-    public function __construct(array $options = [], array $collaborators = [])
+    final public function __construct(array $options = [], array $collaborators = [])
     {
         $production = self::productionEnvironment();
         if (!isset($options['urlAuthorize']) ||
@@ -28,7 +28,7 @@ final class GovBr extends GenericProvider
      *
      * @param array $options
      * @param array $collaborators
-     * @return static
+     * @return self
      */
     public static function staging(array $options, array $collaborators = []): self
     {
@@ -41,7 +41,7 @@ final class GovBr extends GenericProvider
      *
      * @param array $options
      * @param array $collaborators
-     * @return static
+     * @return self
      */
     public static function production(array $options, array $collaborators = []): self
     {

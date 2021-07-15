@@ -4,6 +4,9 @@ declare(strict_types=1);
 namespace BrenoRoosevelt\OAuth2\Client\Test;
 
 use BrenoRoosevelt\OAuth2\Client\GovBr;
+use BrenoRoosevelt\OAuth2\Client\GovBrUser;
+use League\OAuth2\Client\Provider\ResourceOwnerInterface;
+use League\OAuth2\Client\Token\AccessToken;
 use PHPUnit\Framework\TestCase;
 
 class GovBrTest extends TestCase
@@ -35,6 +38,35 @@ class GovBrTest extends TestCase
 
         $this->assertNotStrContainsStr('staging', $authUrl);
         $this->assertNotStrContainsStr('staging', $accessTokenUrl);
+    }
+
+    /**
+     * @test
+     */
+    public function deveGerarInstanciaAmbienteProducao()
+    {
+        $govBr = GovBr::production([
+            'clientId' => 'my_client_id',
+            'clientSecret' => 'my_secret',
+            'redirectUri' => 'my_redirect_uri'
+        ]);
+
+        $authUrl = $govBr->getBaseAuthorizationUrl();
+        $accessTokenUrl = $govBr->getBaseAccessTokenUrl([]);
+
+        $this->assertNotStrContainsStr('staging', $authUrl);
+        $this->assertNotStrContainsStr('staging', $accessTokenUrl);
+    }
+
+    /**
+     * @test
+     */
+    public function deveGerarUrlDetalheCorretamente(): void
+    {
+        $token = new AccessToken(['access_token' => 'mock_token']);
+        $url = $this->newGovBr()->getResourceOwnerDetailsUrl($token);
+
+        $this->assertEquals('https://sso.acesso.gov.br/userinfo', $url);
     }
 
     /**
@@ -93,6 +125,57 @@ class GovBrTest extends TestCase
         $this->assertStrContainsStr('profile', $query['scope']);
         $this->assertStrContainsStr('openid', $query['scope']);
         $this->assertStrContainsStr('govbr_confiabilidades', $query['scope']);
+    }
+
+    public function testUserData(): void
+    {
+        // arrange
+        $response = [
+            'sub' => '99999999999',
+            'name' => 'Cidadao Brasileiro',
+            'email' => 'email@domain.com',
+            'phone_number' => '33999999999',
+            'phone_number_verified' => 0,
+            'email_verified' => 1,
+            'picture' => 'https://localhost/avatar',
+            'profile' => 'https://localhost/userinfo'
+        ];
+
+        $govBr =
+            $this->getMockBuilder(GovBr::class)
+                ->setMethods(['fetchResourceOwnerDetails'])
+                ->getMock();
+        $govBr
+            ->expects($this->any())
+            ->method('fetchResourceOwnerDetails')
+            ->willReturn($response);
+
+        // act
+        $accessToken = new AccessToken(['access_token' => 'mock_token']);
+        /** @var GovBrUser $govBrUser */
+        $govBrUser = $govBr->getResourceOwner($accessToken);
+
+        // assert
+        $this->assertInstanceOf(ResourceOwnerInterface::class, $govBrUser);
+        $this->assertEquals('99999999999', $govBrUser->getId());
+        $this->assertEquals('99999999999', $govBrUser->getCpf());
+        $this->assertEquals('Cidadao Brasileiro', $govBrUser->getName());
+        $this->assertEquals('email@domain.com', $govBrUser->getEmail());
+        $this->assertEquals('https://localhost/avatar', $govBrUser->getAvatarUrl());
+        $this->assertEquals('33999999999', $govBrUser->getPhoneNumber());
+        $this->assertEquals('https://localhost/userinfo', $govBrUser->getProfile());
+        $this->assertFalse($govBrUser->phoneNumberVerified());
+        $this->assertTrue($govBrUser->emailVerified());
+        $this->assertArrayHasKey('cpf', $govBrUser->toArray());
+        $this->assertSame($accessToken, $govBrUser->token());
+//
+        $userDataArray = $govBrUser->toArray();
+        $this->assertArrayHasKey('sub', $userDataArray);
+        $this->assertArrayHasKey('cpf', $userDataArray);
+        $this->assertArrayHasKey('name', $userDataArray);
+        $this->assertArrayHasKey('email', $userDataArray);
+        $this->assertArrayHasKey('picture', $userDataArray);
+        $this->assertArrayHasKey('phone_number', $userDataArray);
     }
 
     public function assertStrContainsStr($neddle, $haystack)
