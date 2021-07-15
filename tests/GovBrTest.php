@@ -3,10 +3,12 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt\OAuth2\Client\Test;
 
+use BrenoRoosevelt\OAuth2\Client\Avatar;
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 use BrenoRoosevelt\OAuth2\Client\GovBrUser;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
+use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
 
 class GovBrTest extends TestCase
@@ -180,6 +182,51 @@ class GovBrTest extends TestCase
         $this->assertArrayHasKey('email', $userDataArray);
         $this->assertArrayHasKey('picture', $userDataArray);
         $this->assertArrayHasKey('phone_number', $userDataArray);
+    }
+
+    /**
+     * @test
+     */
+    public function deveRetornarImagemDoAvatar(): void
+    {
+        $respose = Factory::createResponse(200);
+        $respose = $respose->withAddedHeader('Content-type', 'image/jpeg');
+        $respose->getBody()->write('img');
+
+        $userGovBr = new GovBrUser([
+            'sub' => '99999999999',
+            'name' => 'Cidadao Brasileiro',
+            'email' => 'email@domain.com',
+            'phone_number' => '33999999999',
+            'phone_number_verified' => 0,
+            'email_verified' => 1,
+            'picture' => 'https://localhost/avatar',
+            'profile' => 'https://localhost/userinfo'
+        ], new AccessToken(['access_token' => 'mock_token']));
+
+        $govBr = \Mockery::mock(GovBr::class)
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        /** @phpstan-ignore-next-line */
+        $govBr->shouldReceive('getAuthenticatedRequest')
+            ->once()
+            ->andReturn(Factory::createRequest('GET', 'https://localhost/avatar'));
+
+        /** @phpstan-ignore-next-line */
+        $govBr->shouldReceive('getResponse')
+            ->once()
+            ->andReturn($respose);
+
+        // act
+        /** @var Avatar $avatar */
+        /** @phpstan-ignore-next-line */
+        $avatar = $govBr->getAvatar($userGovBr);
+
+        // assert
+        $this->assertInstanceOf(Avatar::class, $avatar);
+        $this->assertEquals('image/jpeg', $avatar->mimeType());
+        $this->assertEquals('img', $avatar->image());
     }
 
     public function assertStrContainsStr($neddle, $haystack)
