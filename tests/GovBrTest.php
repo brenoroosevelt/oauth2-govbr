@@ -144,18 +144,19 @@ class GovBrTest extends TestCase
             'profile' => 'https://localhost/userinfo'
         ];
 
-        $govBr =
-            $this->getMockBuilder(GovBr::class)
-                ->setMethods(['fetchResourceOwnerDetails'])
-                ->getMock();
-        $govBr
-            ->expects($this->any())
-            ->method('fetchResourceOwnerDetails')
-            ->will($this->returnValue($response));
+        $govBr = \Mockery::mock(GovBr::class)
+            ->makePartial()
+            ->shouldAllowMockingProtectedMethods();
+
+        /** @phpstan-ignore-next-line */
+        $govBr->shouldReceive('fetchResourceOwnerDetails')
+            ->once()
+            ->andReturn($response);
 
         // act
         $accessToken = new AccessToken(['access_token' => 'mock_token']);
         /** @var GovBrUser $govBrUser */
+        /** @phpstan-ignore-next-line */
         $govBrUser = $govBr->getResourceOwner($accessToken);
 
         // assert

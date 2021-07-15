@@ -33,7 +33,8 @@
     "middlewares/utils": "^2 || ^3",
     "laminas/laminas-diactoros": "@stable",
     "laminas/laminas-httphandlerrunner": "@stable",
-    "middlewares/whoops": "@stable"
+    "middlewares/whoops": "@stable",
+    "mockery/mockery": "^1"
   },
   "config": {
     "process-timeout": 0,
