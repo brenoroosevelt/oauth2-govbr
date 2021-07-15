@@ -5,7 +5,7 @@
 [![Latest Version](https://img.shields.io/github/release/brenoroosevelt/oauth2-govbr.svg?style=flat)](https://github.com/brenoroosevelt/oauth2-govbr/releases) 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md) 
 
-Este pacote fornece suporte OAuth2 para Gov.br em PHP usando a biblioteca cliente para OAuth 2.0 do PHP League.
+Este pacote fornece suporte OAuth 2.0 para Gov.br em PHP usando a biblioteca cliente do [League PHP](https://github.com/thephpleague/oauth2-client).
 
 ## Instalação
 Via composer:
@@ -15,10 +15,11 @@ composer brenoroosevelt/oauth2-govbr
 ```
 
 ### Exemplo de Uso
-O uso é do mesmo jeito que se usa qualquer cliente OAuth do League.
+uso é do mesmo jeito que se usa qualquer cliente OAuth do League. Veja um exemplo de uso:
 ```php
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 
+// Criando uma instância do provider para GovBr
 $govBr = new GovBr([
     'clientId'     => 'XXXXXXXX', // Client ID fornecido pelo GovBr
     'clientSecret' => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
@@ -57,8 +58,13 @@ if ($avatar !== null) {
     $avatar->toHtml(['width' => 60]);
 }
 ```
+### Fluxo para _Authorization Code_
+Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_.  
+Por favor, veja o arquivo [/example/AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php) 
 
-### Ambientes
+### Rodando ambiente
+
+### Ambiente de Homologação
 Por padrão, o ambiente será de _produção_, mas você pode escolher o ambiente de _**homologação**_ (staging) solicitando uma instância da seguinte forma:
 ```php
 $govBr = GovBr::staging([

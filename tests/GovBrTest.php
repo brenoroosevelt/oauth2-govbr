@@ -6,6 +6,7 @@ namespace BrenoRoosevelt\OAuth2\Client\Test;
 use BrenoRoosevelt\OAuth2\Client\Avatar;
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 use BrenoRoosevelt\OAuth2\Client\GovBrUser;
+use Laminas\Diactoros\RequestFactory;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Middlewares\Utils\Factory;
@@ -208,10 +209,12 @@ class GovBrTest extends TestCase
             ->makePartial()
             ->shouldAllowMockingProtectedMethods();
 
+        $request = (new RequestFactory())->createRequest('GET', 'https://localhost/avatar');
+
         /** @phpstan-ignore-next-line */
         $govBr->shouldReceive('getAuthenticatedRequest')
             ->once()
-            ->andReturn(Factory::getRequestFactory()->createRequest('GET', 'https://localhost/avatar'));
+            ->andReturn($request);
 
         /** @phpstan-ignore-next-line */
         $govBr->shouldReceive('getResponse')
