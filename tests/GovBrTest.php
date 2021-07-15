@@ -8,7 +8,6 @@ use PHPUnit\Framework\TestCase;
 
 class GovBrTest extends TestCase
 {
-
     public function newGovBr()
     {
         return new GovBr([
@@ -25,7 +24,7 @@ class GovBrTest extends TestCase
         return $query;
     }
 
-    /*
+    /**
      * @test
      */
     public function construtorDeveGerarInstanciaAmbienteProducao()
@@ -34,8 +33,8 @@ class GovBrTest extends TestCase
         $authUrl = $govBr->getBaseAuthorizationUrl();
         $accessTokenUrl = $govBr->getBaseAccessTokenUrl([]);
 
-        $this->assertStringNotContainsString('staging', $authUrl);
-        $this->assertStringNotContainsString('staging', $accessTokenUrl);
+        $this->assertNotStrContainsStr('staging', $authUrl);
+        $this->assertNotStrContainsStr('staging', $accessTokenUrl);
     }
 
     /**
@@ -68,6 +67,9 @@ class GovBrTest extends TestCase
         $this->assertNotEmpty($govBr->getState());
     }
 
+    /**
+     * @test
+     */
     public function deveGerarUmaInstanciaParaAmbienteHomologacao()
     {
         $govBrStaging = GovBr::staging([
@@ -76,8 +78,7 @@ class GovBrTest extends TestCase
             'redirectUri' => 'my_redirect_uri'
         ]);
 
-        $this->assertStringContainsString('staging', $govBrStaging->getBaseAuthorizationUrl());
-        $this->assertStringContainsString('staging', $govBrStaging->getBaseAccessTokenUrl([]));
+        $this->assertStrContainsStr('staging', $govBrStaging->getBaseAuthorizationUrl());
     }
 
     /**
@@ -88,9 +89,19 @@ class GovBrTest extends TestCase
         $url = $this->newGovBr()->getAuthorizationUrl();
         $query = $this->urlQueryParams($url);
 
-        $this->assertStringContainsString('email', $query['scope']);
-        $this->assertStringContainsString('profile', $query['scope']);
-        $this->assertStringContainsString('openid', $query['scope']);
-        $this->assertStringContainsString('govbr_confiabilidades', $query['scope']);
+        $this->assertStrContainsStr('email', $query['scope']);
+        $this->assertStrContainsStr('profile', $query['scope']);
+        $this->assertStrContainsStr('openid', $query['scope']);
+        $this->assertStrContainsStr('govbr_confiabilidades', $query['scope']);
+    }
+
+    public function assertStrContainsStr($neddle, $haystack)
+    {
+        $this->assertTrue(preg_match(sprintf('/%s/', $neddle), $haystack) > 0);
+    }
+
+    public function assertNotStrContainsStr($neddle, $haystack)
+    {
+        $this->assertFalse(preg_match(sprintf('/%s/', $neddle), $haystack) > 0);
     }
 }
