@@ -30,10 +30,15 @@ final class GovBr extends GenericProvider
     public function getAuthorizationUrl(array $options = []): string
     {
         if (!isset($options['nonce'])) {
-            $options['nonce'] = md5(uniqid('govbr', true));
+            $options['nonce'] = $this->getNonce();
         }
 
         return parent::getAuthorizationUrl($options);
+    }
+
+    private function getNonce(): string
+    {
+        return md5(uniqid('govbr', true));
     }
 
     /**
