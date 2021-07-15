@@ -1,0 +1,65 @@
+name: CI Build
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.operating-system }}
+    strategy:
+      matrix:
+        # windows-latest, macOS-latest?
+        operating-system: [ubuntu-latest]
+        php-versions: ['7.1', '7.2', '7.3', '7.4', '8.0']
+      
+    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    steps:
+
+    - name: Setup PHP with Xdebug
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: ${{ matrix.php-versions }}
+        #ini-values: pcov.directory=api #optional, see above for usage.
+        coverage: xdebug
+    
+    - name: Checkout
+      uses: actions/checkout@v2
+    
+    - name: Check PHP Version
+      run: php -v 
+    
+    - name: Install Dependencies
+      run: composer install --prefer-dist --no-progress 
+    
+    - name: Run Test Suite
+      run: composer check
+
+  codecov:
+
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP (with Xdebug)
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.0'
+          coverage: xdebug
+
+      - name: Check PHP Version
+        run: php -v
+
+      - name: Install Dependencies
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Tests With Code Coverage
+        run: "vendor/bin/phpunit tests/ --coverage-filter=src/ --coverage-clover=coverage.xml"
+
+      - name: "Send code coverage report to Codecov.io"
+        env:
+          CODECOV_TOKEN: "${{ secrets.CODECOV_TOKEN }}"
+        run: "bash <(curl -s https://codecov.io/bash) || true"
