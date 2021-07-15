@@ -10,18 +10,42 @@ final class GovBr extends GenericProvider
 {
     public function __construct(array $options = [], array $collaborators = [])
     {
-        $options = array_merge($options, Environment::production());
+        $production = self::productionEnvironment();
+        if (!isset($options['urlAuthorize']) ||
+            !isset($options['urlAccessToken']) ||
+            !isset($options['urlResourceOwnerDetails'])
+        ) {
+            $options['urlAuthorize'] = $production['urlAuthorize'];
+            $options['urlAccessToken'] = $production['urlAccessToken'];
+            $options['urlResourceOwnerDetails'] = $production['urlResourceOwnerDetails'];
+        }
+
         parent::__construct($options, $collaborators);
     }
 
-    public static function stagingEnvironment(array $options): self
+    /**
+     * Cria uma instância para ambiente de homologação
+     *
+     * @param array $options
+     * @param array $collaborators
+     * @return static
+     */
+    public static function staging(array $options, array $collaborators = []): self
     {
-        return new self(array_merge($options, Environment::staging()));
+        return new self(array_merge($options, self::stagingEnvironment()), $collaborators);
     }
 
-    public static function productionEnvironment(array $options): self
+    /**
+     * Cria uma instância para ambiente de produção
+     * Pode ser criado diretamente via construtor
+     *
+     * @param array $options
+     * @param array $collaborators
+     * @return static
+     */
+    public static function production(array $options, array $collaborators = []): self
     {
-        return new self(array_merge($options, Environment::production()));
+        return new self(array_merge($options, self::productionEnvironment()), $collaborators);
     }
 
     /**
@@ -30,15 +54,10 @@ final class GovBr extends GenericProvider
     public function getAuthorizationUrl(array $options = []): string
     {
         if (!isset($options['nonce'])) {
-            $options['nonce'] = $this->getNonce();
+            $options['nonce'] = md5(uniqid('govbr', true));
         }
 
         return parent::getAuthorizationUrl($options);
-    }
-
-    private function getNonce(): string
-    {
-        return md5(uniqid('govbr', true));
     }
 
     public function getDefaultScopes(): array
@@ -80,5 +99,23 @@ final class GovBr extends GenericProvider
                 (string) $response->getBody(),
                 $response->getHeaderLine('Content-type')
             );
+    }
+
+    private static function productionEnvironment(): array
+    {
+        return [
+            'urlAuthorize'            => 'https://sso.acesso.gov.br/authorize',
+            'urlAccessToken'          => 'https://sso.acesso.gov.br/token',
+            'urlResourceOwnerDetails' => 'https://sso.acesso.gov.br/userinfo',
+        ];
+    }
+
+    private static function stagingEnvironment(): array
+    {
+        return [
+            'urlAuthorize'            => 'https://sso.staging.acesso.gov.br/authorize',
+            'urlAccessToken'          => 'https://sso.staging.acesso.gov.br/token',
+            'urlResourceOwnerDetails' => 'https://sso.staging.acesso.gov.br/userinfo',
+        ];
     }
 }

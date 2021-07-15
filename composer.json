@@ -46,7 +46,8 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "BrenoRoosevelt\\OAuth2\\Client\\Test\\": "tests/"
+      "BrenoRoosevelt\\OAuth2\\Client\\Test\\": "tests/",
+      "BrenoRoosevelt\\OAuth2\\Client\\Example\\": "example/"
     }
   },
   "scripts": {
