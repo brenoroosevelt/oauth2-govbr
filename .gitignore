@@ -26,3 +26,4 @@ Homestead.json
 
 # Composer
 composer.phar
+composer.lock
