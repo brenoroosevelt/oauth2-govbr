@@ -7,6 +7,15 @@
 
 Este pacote fornece suporte OAuth 2.0 para Gov.br em PHP usando a biblioteca cliente do [League PHP](https://github.com/thephpleague/oauth2-client).
 
+## Requisitos
+Este pacote suporta as seguintes versões do PHP:
+
+* PHP 8.0
+* PHP 7.4
+* PHP 7.3
+* PHP 7.2
+* PHP 7.1
+
 ## Instalação
 Via composer:
 
@@ -85,15 +94,6 @@ cd [app-name]
 docker-compose up -d
 ```
 Depois disso, abra `http://localhost:8080` em seu browser.
-
-## Requirements
-Este pacote suporta as seguintes versões do PHP:
-
-* PHP 8.0
-* PHP 7.4
-* PHP 7.3
-* PHP 7.2
-* PHP 7.1
 
 ## Exemplo de uso
 Para exemplos de uso e código, confira o guia básico.
