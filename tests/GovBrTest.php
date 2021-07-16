@@ -7,10 +7,14 @@ use BrenoRoosevelt\OAuth2\Client\Avatar;
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 use BrenoRoosevelt\OAuth2\Client\GovBrUser;
 use Laminas\Diactoros\RequestFactory;
+use Laminas\Diactoros\ResponseFactory;
+use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 use League\OAuth2\Client\Token\AccessToken;
 use Middlewares\Utils\Factory;
 use PHPUnit\Framework\TestCase;
+use ReflectionClass;
+use ReflectionMethod;
 
 class GovBrTest extends TestCase
 {
@@ -252,6 +256,20 @@ class GovBrTest extends TestCase
         $this->assertEquals('img', $avatar->image());
     }
 
+    /**
+     * @test
+     */
+    public function deveAnalisarRespostaErroLancarExcecao()
+    {
+        $response = (new ResponseFactory())->createResponse(400);
+        $data['error'] = ["invalid request"];
+        $govBr = $this->newGovBr();
+        $checkResponse = self::getMethod(GovBr::class, 'checkResponse');
+
+        $this->expectException(IdentityProviderException::class);
+        $checkResponse->invokeArgs($govBr, [$response, $data]);
+    }
+
     public function assertStrContainsStr($neddle, $haystack)
     {
         $this->assertTrue(preg_match(sprintf('/%s/', $neddle), $haystack) > 0);
@@ -260,5 +278,13 @@ class GovBrTest extends TestCase
     public function assertNotStrContainsStr($neddle, $haystack)
     {
         $this->assertFalse(preg_match(sprintf('/%s/', $neddle), $haystack) > 0);
+    }
+
+    protected static function getMethod($className, $methodName): ReflectionMethod
+    {
+        $className = new ReflectionClass($className);
+        $method = $className->getMethod($methodName);
+        $method->setAccessible(true);
+        return $method;
     }
 }
