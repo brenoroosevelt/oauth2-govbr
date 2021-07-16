@@ -41,8 +41,8 @@ $ docker logs <container_id> --follow
 
 #### 5. Configurar 
 Você precisa alterar as seguitens configurações no arquivo [run-example.php](run-example.php) disponível na raiz do projeto:
-* `clientId`: identificador de seuaplicativo no Gov.br
-* `clientSecret`: senha do aplicativo fornecida pelo Gov.br
+* `clientId`: identificador da sua aplicação no Gov.br
+* `clientSecret`: senha fornecida pelo Gov.br
 * `redirectUri`: uma das urls de redirecionamento de login cadastrada no Gov.br para esta aplicação
 * `redirectUriLogout`: uma das urls de redirecionamento de logout cadastrada no Gov.br para esta aplicação
 
