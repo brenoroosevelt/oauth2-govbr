@@ -270,6 +270,47 @@ class GovBrTest extends TestCase
         $checkResponse->invokeArgs($govBr, [$response, $data]);
     }
 
+    /**
+     * @test
+     */
+    public function deveObterUrlLogout()
+    {
+        $govBr = new GovBr([
+            'redirectUriLogout' => 'https://meu-dominio.com/meu-logout'
+        ]);
+
+        $urlLogout = $govBr->getLogoutUrl();
+        $this->assertStrContainsStr('meu-logout', $urlLogout);
+        $this->assertStrContainsStr('\/logout', $urlLogout);
+        $this->assertNotStrContainsStr('staging', $urlLogout);
+    }
+
+    /**
+     * @test
+     */
+    public function deveObterUrlLogoutEmHomologacao()
+    {
+        $govBr = GovBr::staging([
+            'redirectUriLogout' => 'https://meu-dominio.com/meu-logout'
+        ]);
+
+        $urlLogout = $govBr->getLogoutUrl();
+        $this->assertStrContainsStr('meu-logout', $urlLogout);
+        $this->assertStrContainsStr('\/logout', $urlLogout);
+        $this->assertStrContainsStr('staging', $urlLogout);
+    }
+
+    /**
+     * @test
+     */
+    public function deveObterErroQuandoPedirUrlLogoutSemRedirectLogoutUri()
+    {
+        $govBr = new GovBr([]);
+
+        $this->expectException(\UnexpectedValueException::class);
+        $urlLogout = $govBr->getLogoutUrl();
+    }
+
     public function assertStrContainsStr($neddle, $haystack)
     {
         $this->assertTrue(preg_match(sprintf('/%s/', $neddle), $haystack) > 0);

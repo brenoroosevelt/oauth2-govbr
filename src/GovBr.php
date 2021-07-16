@@ -3,28 +3,36 @@ declare(strict_types=1);
 
 namespace BrenoRoosevelt\OAuth2\Client;
 
-use Exception;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
+use UnexpectedValueException;
 
 class GovBr extends AbstractProvider
 {
+    const STAGING = 'https://sso.staging.acesso.gov.br';
+    const PRODUCTION = 'https://sso.acesso.gov.br';
+
     use BearerAuthorizationTrait;
 
-    private $urlAuthorize;
-    private $urlAccessToken;
-    private $urlResourceOwnerDetails;
+    protected $urlAuthorize;
+    protected $urlAccessToken;
+    protected $urlResourceOwnerDetails;
+    protected $urlLogout;
+
+    /** @var string */
+    protected $redirectUriLogout = "";
 
     final public function __construct(array $options = [], array $collaborators = [])
     {
         list(
             $this->urlAuthorize,
             $this->urlAccessToken,
-            $this->urlResourceOwnerDetails
-        ) = array_values(self::productionEnvironment());
+            $this->urlResourceOwnerDetails,
+            $this->urlLogout
+        ) = array_values(self::getEnvironment(GovBr::PRODUCTION));
 
         parent::__construct($options, $collaborators);
     }
@@ -42,8 +50,9 @@ class GovBr extends AbstractProvider
         list(
             $staging->urlAuthorize,
             $staging->urlAccessToken,
-            $staging->urlResourceOwnerDetails
-        ) = array_values(self::stagingEnvironment());
+            $staging->urlResourceOwnerDetails,
+            $staging->urlLogout
+        ) = array_values(self::getEnvironment(GovBr::STAGING));
 
         return $staging;
     }
@@ -110,24 +119,6 @@ class GovBr extends AbstractProvider
             );
     }
 
-    private static function productionEnvironment(): array
-    {
-        return [
-            'urlAuthorize'            => 'https://sso.acesso.gov.br/authorize',
-            'urlAccessToken'          => 'https://sso.acesso.gov.br/token',
-            'urlResourceOwnerDetails' => 'https://sso.acesso.gov.br/userinfo',
-        ];
-    }
-
-    private static function stagingEnvironment(): array
-    {
-        return [
-            'urlAuthorize'            => 'https://sso.staging.acesso.gov.br/authorize',
-            'urlAccessToken'          => 'https://sso.staging.acesso.gov.br/token',
-            'urlResourceOwnerDetails' => 'https://sso.staging.acesso.gov.br/userinfo',
-        ];
-    }
-
     public function getBaseAuthorizationUrl(): string
     {
         return $this->urlAuthorize;
@@ -141,6 +132,16 @@ class GovBr extends AbstractProvider
     public function getResourceOwnerDetailsUrl(AccessToken $token): string
     {
         return $this->urlResourceOwnerDetails;
+    }
+
+    public function getLogoutUrl(): string
+    {
+        if (empty($this->redirectUriLogout)) {
+            throw new UnexpectedValueException("Parâmetro redirectUriLogout não foi definido");
+        }
+
+        $query  = $this->buildQueryString(['post_logout_redirect_uri' => $this->redirectUriLogout]);
+        return $this->appendQuery($this->urlLogout, $query);
     }
 
     /**
@@ -163,5 +164,15 @@ class GovBr extends AbstractProvider
             $errorCode = $data['codigo'] ?? $code;
             throw new IdentityProviderException($error, $errorCode, $data);
         }
+    }
+
+    final public static function getEnvironment(string $env): array
+    {
+        return [
+            'urlAuthorize'            => $env . '/authorize',
+            'urlAccessToken'          => $env . '/token',
+            'urlResourceOwnerDetails' => $env . '/userinfo',
+            'urlLogout'               => $env . '/logout',
+        ];
     }
 }
