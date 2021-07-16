@@ -1,13 +1,15 @@
 # Ambiente de Homologação
 
-Disponibilizamos um servidor você testar a integração com o Gov.br em um ambiente de homologação. 
-É muito importante que você conheça o [guia oficial](https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html) e já tenha preenchido o formulário e tenha recebido as configurações do seu ambiente.
+Disponibilizamos um servidor para você testar a integração com o Gov.br em um ambiente de homologação. 
+É muito importante que você conheça o [Roteiro de Integração do Login Único](https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html), tenha preenchido o formulário e já tenha recebido as configurações referentes a sua aplicação.
 
 ### Requisitos
 Você vai precisar de: 
 * Ambiente Linux (com _super usuário_);
 * Docker instalado;
 * Composer v2 instalado.
+
+Então vamos começar! São apenas **6 passos simples**.
 
 #### 1. Baixar o projeto 
 Baixe o projeto usando o Composer e subtituindo `[nova-pasta]` pelo nome do seu projeto.
