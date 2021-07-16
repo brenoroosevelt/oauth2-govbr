@@ -92,7 +92,7 @@ $govBr = GovBr::staging([
     'redirectUriLogout'   => "https://seu-app-dominio.com.br/seu-logout"
 ]);
 ```
-Além do provider para Gov.br, junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_. Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php).
+Além do provider para Gov.br, junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_ [aqui](/example/AuthorizationCodeFlow.php).
 Diponibilizamos também um servidor (containar docker) para que você possar executar esse fluxo em um ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
 
 ## Contribuindo

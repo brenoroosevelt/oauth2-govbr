@@ -1,7 +1,7 @@
 # Ambiente de Homologação
 
 Disponibilizamos um servidor você testar a integração com o Gov.br em um ambiente de homologação. 
-É muito importante que você conheça o guia oficial e já tenha preenchido o formulário e tenha recebido as configurações do seu ambiente.
+É muito importante que você conheça o [guia oficial](https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html) e já tenha preenchido o formulário e tenha recebido as configurações do seu ambiente.
 
 ### Requisitos
 Você vai precisar de: 
