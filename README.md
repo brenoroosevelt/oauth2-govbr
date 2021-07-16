@@ -8,7 +8,7 @@
 Este pacote fornece suporte OAuth 2.0 para Gov.br em PHP usando a biblioteca cliente do [League PHP](https://github.com/thephpleague/oauth2-client).
 
 ## Requisitos
-Este pacote suporta as seguintes versões do PHP:
+Versões suportadas do PHP:
 
 * PHP 8.0
 * PHP 7.4
@@ -24,30 +24,35 @@ composer brenoroosevelt/oauth2-govbr
 ```
 
 ### Exemplo de Uso
-uso é do mesmo jeito que se usa qualquer cliente OAuth do League. Veja um exemplo de uso:
+Criando uma instância do provider para GovBr em ambiente de produção:
 ```php
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 
-// Criando uma instância do provider para GovBr
 $govBr = new GovBr([
     'clientId'     => 'XXXXXXXX', // Client ID fornecido pelo GovBr
     'clientSecret' => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
     'redirectUri'  => "https://seu-app-dominio.com.br/seu-login" // Url de redirecionamento
 ]);
+```
 
-// Obtendo a url de autorização
-$urlAutorizacao = $this->govBr->getAuthorizationUrl();
+Obtendo a url de autorização:
+```php
+$urlAutorizacao = $govBr->getAuthorizationUrl();
 $state = $this->govBr->getState();
+// redicreionar o usuário para a url 
+```
 
-// Obtendo o token de acesso
+Obtendo o token de acesso (Access Token):
+```php
 $authorizationCode = $_GET['code'];
 $accessToken = 
        $govBr->getAccessToken(
             new AuthorizationCode(), 
             ['code' => $authorizationCode]
        );
-
-// Obtendo mais informações do usuário
+```
+Obtendo mais informações do usuário:
+```php
 $govBrUser = $govBr->getResourceOwner($accessToken);         
 $govBrUser->getName();
 $govBrUser->getCpf();
@@ -59,7 +64,7 @@ $govBrUser->getEmail();
 $govBrUser->emailVerified();
 
 // Obtendo o avatar do usuário
-$avatar = $this->govBr->getAvatar($govBrUser);
+$avatar = $govBr->getAvatar($govBrUser);
 if ($avatar !== null) {
     $avatar->image();
     $avatar->imageBase64();
@@ -69,13 +74,12 @@ if ($avatar !== null) {
 ```
 ### Fluxo para _Authorization Code_
 Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_.  
-Por favor, veja o arquivo [/example/AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php) 
-
-### Rodando ambiente
+Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php). 
 
 ### Ambiente de Homologação
 Por padrão, o ambiente será de _produção_, mas você pode escolher o ambiente de _**homologação**_ (staging) solicitando uma instância da seguinte forma:
 ```php
+<?php
 $govBr = GovBr::staging([
     'clientId'     => 'XXXXXXXX', // Client ID fornecido pelo GovBr
     'clientSecret' => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
@@ -95,15 +99,12 @@ docker-compose up -d
 ```
 Depois disso, abra `http://localhost:8080` em seu browser.
 
-## Exemplo de uso
-Para exemplos de uso e código, confira o guia básico.
-
 ## Contribuindo
 
-Para contribuir com esse projeto, por favor veja [nossas diretrizes](https://github.com/thephpleague/oauth2-client/blob/master/CONTRIBUTING.md).
+Para contribuir com esse projeto, por favor veja [nossas diretrizes](CONTRIBUTING.md).
 
 ## Licença
-Este projeto está licenciado sob os termos da licença MIT. Consulte o arquivo [LICENSE](LICENSE.md) para entender os direitos e limitações da licença.
+Este projeto está licenciado sob os termos da licença MIT. Consulte o arquivo [LICENSE](LICENSE.md) para entender os direitos e limitações.
 
 [PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
