@@ -63,9 +63,11 @@ $govBr = GovBr::staging([
 ]);
 
 // O fluxo está implementado nessa classe
+
 $authorizationCodeFlow = new AuthorizationCodeFlow($govBr, new StateStorage());
 
 /** Despacha a requisição http (Seu framework faz isso) */
+
 $response =
     Dispatcher::run([
             new Whoops(),
