@@ -42,7 +42,7 @@ Atenção! Os parâmetros `clientId` e `clientSecret` acima são sigilosos, evit
 ```php
 $urlAutorizacao = $govBr->getAuthorizationUrl();
 $state = $this->govBr->getState();
-// redireionar o usuário para a url 
+// redirecionar o usuário para a url 
 ```
 
 #### Obtendo o token de acesso (Access Token):
