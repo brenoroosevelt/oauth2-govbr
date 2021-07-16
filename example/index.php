@@ -56,15 +56,10 @@ require __DIR__ . '/../vendor/autoload.php';
  * - Em ambiente de produção use GovBr::production(...), ou use o construtor da classe
  */
 $govBr = GovBr::staging([
-    'clientId'      => 'XXXXXXXX', // Client ID fornecido pelo GovBr
-    'clientSecret'  => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
-    'redirectUri'   => "https://seu-app-dominio.com.br/seu-oauth-login" // Url de redirecionamento cadastrada no GovBr
-]);
-
-$govBr = GovBr::staging([
-    'clientId'      => 'homologacao.ufms.br-pre-matricula',    // The client ID assigned to you by the provider
-    'clientSecret'  => 'GXvHQpwzPf_3jyEyq1mMTJBy_Dbs_ZhzZhvvrqdc-BsfyVJuNjmxAHR1N53e9N3ab8NwsoJIVI7VJi99wK3K0w',    // The client password assigned to you by the provider
-    'redirectUri'   => "https://homologacao.ufms.br/prossiga/pre-matricula/login" // Url de redirecionamento cadastrada no GovBr
+    'clientId'            => 'XXXXXXXX', // Client ID fornecido pelo GovBr
+    'clientSecret'        => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
+    'redirectUri'         => "https://seu-app-dominio.com.br/seu-oauth-login", // Url de redirecionamento cadastrada no GovBr
+    'redirectUriLogout'   => "https://seu-app-dominio.com.br/seu-oauth-login" // Url de redirecionamento cadastrada no GovBr
 ]);
 
 // O fluxo está implementado nessa classe
