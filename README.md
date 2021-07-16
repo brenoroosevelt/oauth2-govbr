@@ -23,8 +23,8 @@ Via composer:
 composer brenoroosevelt/oauth2-govbr 
 ```
 
-### Exemplo de Uso
-Criando uma instância do provider para GovBr em ambiente de produção:
+## Exemplos de Uso
+#### Criando uma instância do provider para GovBr em ambiente de produção:
 ```php
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 
@@ -35,14 +35,14 @@ $govBr = new GovBr([
 ]);
 ```
 
-Obtendo a url de autorização:
+#### Obtendo a url de autorização:
 ```php
 $urlAutorizacao = $govBr->getAuthorizationUrl();
 $state = $this->govBr->getState();
 // redicreionar o usuário para a url 
 ```
 
-Obtendo o token de acesso (Access Token):
+#### Obtendo o token de acesso (Access Token):
 ```php
 $authorizationCode = $_GET['code'];
 $accessToken = 
@@ -51,7 +51,7 @@ $accessToken =
             ['code' => $authorizationCode]
        );
 ```
-Obtendo mais informações do usuário:
+#### Obtendo mais informações do usuário:
 ```php
 $govBrUser = $govBr->getResourceOwner($accessToken);         
 $govBrUser->getName();
