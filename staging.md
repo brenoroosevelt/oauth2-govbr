@@ -19,7 +19,7 @@ Entre na pasta
 $ cd  [nova-pasta]
 ```
 #### 2. Redirecior do domínio
-Precisamos redirecionar o dominio de seu aplicativo para `localhost`. Portanto, inclua a seguinte linha em seu arquivo `/etc/hosts`:
+Precisamos redirecionar o dominio da sua aplicação para `localhost`. Portanto, inclua a seguinte linha em seu arquivo `/etc/hosts`:
 ```
 127.0.1.1       seu-app-dominio.com.br
 ```

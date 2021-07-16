@@ -75,6 +75,12 @@ if ($avatar !== null) {
     $avatar->toHtml(['width' => 60]);
 }
 ```
+#### Obtendo a url de logout:
+```php
+$urlLogout = $govBr->getLogoutUrl();
+// redicreionar  
+```
+
 ### Ambiente de Homologação
 Por padrão, o ambiente será de _produção_, mas você pode escolher o ambiente de _**homologação**_ (staging) solicitando uma instância da seguinte forma:
 ```php
@@ -86,8 +92,8 @@ $govBr = GovBr::staging([
     'redirectUriLogout'   => "https://seu-app-dominio.com.br/seu-logout"
 ]);
 ```
-Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_. Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php).
-Além disso, diponibilizamos um servidor (containar docker) para que você possar executar esse fluxo em um ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
+Além do provider para Gov.br, junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_. Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php).
+Diponibilizamos também um servidor (containar docker) para que você possar executar esse fluxo em um ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
 
 ## Contribuindo
 
