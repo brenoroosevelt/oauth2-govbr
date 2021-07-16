@@ -96,8 +96,10 @@ Além do provider para Gov.br, junto com este pacote fornecemos um exemplo para 
 Diponibilizamos também um servidor (containar docker) para que você possar executar esse fluxo em um ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
 
 ## Contribuindo
-
 Para contribuir com esse projeto, por favor veja [nossas diretrizes](CONTRIBUTING.md).
+
+## Segurança
+Se você descobrir qualquer problema relacionado à segurança, envie um e-mail em vez de abrir uma _issue_.
 
 ## Licença
 Este projeto está licenciado sob os termos da licença MIT. Consulte o arquivo [LICENSE](LICENSE) para entender os direitos e limitações.
