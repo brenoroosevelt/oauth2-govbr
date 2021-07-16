@@ -5,7 +5,7 @@
 [![Latest Version](https://img.shields.io/github/release/brenoroosevelt/oauth2-govbr.svg?style=flat)](https://github.com/brenoroosevelt/oauth2-govbr/releases) 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat)](LICENSE.md) 
 
-Este pacote fornece suporte OAuth 2.0 para Gov.br em PHP usando a biblioteca cliente do [League PHP](https://github.com/thephpleague/oauth2-client).
+Este pacote fornece suporte OAuth 2.0 para Gov.br usando a biblioteca cliente do [League PHP](https://github.com/thephpleague/oauth2-client).
 
 ## Requisitos
 Versões suportadas do PHP:
@@ -36,7 +36,7 @@ $govBr = new GovBr([
     'redirectUriLogout'   => "https://seu-app-dominio.com.br/seu-logout"
 ]);
 ```
-Atenção! Os parâmetros `clientId` e `clientSecret` acima são sigilosos, evite enviar esses valores para seu repositório git,prefira obtê-los usando `getenv(...)`.
+Atenção! Os parâmetros `clientId` e `clientSecret` acima são sigilosos, evite enviar esses valores para seu repositório git; prefira obtê-los usando `getenv(...)`.
 
 #### Obtendo a url de autorização:
 ```php
@@ -82,12 +82,12 @@ Por padrão, o ambiente será de _produção_, mas você pode escolher o ambient
 $govBr = GovBr::staging([
     'clientId'     => 'XXXXXXXX', // Client ID fornecido pelo GovBr
     'clientSecret' => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
-    'redirectUri'  => "https://seu-app-dominio.com.br/seu-login" // Url de redirecionamento
+    'redirectUri'  => "https://seu-app-dominio.com.br/seu-login", // Url de redirecionamento
+    'redirectUriLogout'   => "https://seu-app-dominio.com.br/seu-logout"
 ]);
 ```
-Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_.  
-Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php).
-Além disso, diponibilizamos um servidor (containar docker) para que você possar executar esse fluxoemum ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
+Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_. Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php).
+Além disso, diponibilizamos um servidor (containar docker) para que você possar executar esse fluxo em um ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
 
 ## Contribuindo
 

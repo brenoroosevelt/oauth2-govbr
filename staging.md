@@ -29,7 +29,7 @@ O Container vai construir um servidor usando portas `80` e `443`, por isso, ante
 $ docker-compose up -d
 ```
 #### 4. Inspecionar o log
-Para inspecionar o log do container,execute o seguinte comando:
+Para inspecionar o log do container, execute o seguinte comando:
 ```bash
 $ docker ps
 ```
@@ -50,10 +50,10 @@ Abra no browser a sua aplicação `https://seu-app-dominio.com.br/`.
 
 Ao final, você terá um container docker rodando com Apache e PHP 8.0.
 
-Isso deve funcionar porque este caminho foi redirecionado para `localhost` e o container docker irá responder às solicitações.
+Isso deve funcionar porque este domínio foi redirecionado para `localhost` (no passo 2) e o container docker irá responder às solicitações.
 
-Não se preocupe com o roteamento dentro desse servidor, para facilitar, qualquer caminho (rota) no servidor irá executar o arquivo `run-example`.php
+Não se preocupe com o roteamento dentro desse servidor, para facilitar, qualquer caminho (rota) no servidor irá executar o arquivo `run-example.php`.
 
 #### 7. Resultado esperado:
 
-Se tudo estiver certo, você será direcionado ao site do Gov.br para consentir e se autenticar, em seguida será redirecionado de volta para sua aplicação com os dados do usuário. Esse fluxo pode ser verificado no arquivo [AuthorizationCodeFlow.php](example/AuthorizationCodeFlow.php).
+Se tudo estiver certo, após executar o último passo,você será direcionado ao site do Gov.br se autenticar, em seguida será redirecionado de volta para sua aplicação com os dados do usuário. Esse fluxo pode ser verificado no arquivo [AuthorizationCodeFlow.php](example/AuthorizationCodeFlow.php). Você deverá ver na tela um JSON com os dados do usuário autenticado.
