@@ -42,7 +42,7 @@ Atenção! Os parâmetros `clientId` e `clientSecret` acima são sigilosos, evit
 ```php
 $urlAutorizacao = $govBr->getAuthorizationUrl();
 $state = $this->govBr->getState();
-// redicreionar o usuário para a url 
+// redireionar o usuário para a url 
 ```
 
 #### Obtendo o token de acesso (Access Token):
@@ -78,7 +78,7 @@ if ($avatar !== null) {
 #### Obtendo a url de logout:
 ```php
 $urlLogout = $govBr->getLogoutUrl();
-// redicreionar  
+// redirecionar  
 ```
 
 ### Ambiente de Homologação
