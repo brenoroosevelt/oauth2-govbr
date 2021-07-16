@@ -104,7 +104,7 @@ Depois disso, abra `http://localhost:8080` em seu browser.
 Para contribuir com esse projeto, por favor veja [nossas diretrizes](CONTRIBUTING.md).
 
 ## Licença
-Este projeto está licenciado sob os termos da licença MIT. Consulte o arquivo [LICENSE](LICENSE.md) para entender os direitos e limitações.
+Este projeto está licenciado sob os termos da licença MIT. Consulte o arquivo [LICENSE](LICENSE) para entender os direitos e limitações.
 
 [PSR-1]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-1-basic-coding-standard.md
 [PSR-2]: https://github.com/php-fig/fig-standards/blob/master/accepted/PSR-2-coding-style-guide.md
