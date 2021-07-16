@@ -57,4 +57,4 @@ Não se preocupe com o roteamento dentro desse servidor, para facilitar, qualque
 
 #### 7. Resultado esperado:
 
-Se tudo estiver certo, após executar o último passo,você será direcionado ao site do Gov.br se autenticar, em seguida será redirecionado de volta para sua aplicação com os dados do usuário. Esse fluxo pode ser verificado no arquivo [AuthorizationCodeFlow.php](example/AuthorizationCodeFlow.php). Você deverá ver na tela um JSON com os dados do usuário autenticado.
+Se tudo estiver certo, após executar o último passo, você será direcionado ao site do Gov.br se autenticar, em seguida será redirecionado de volta para sua aplicação com os dados do usuário. Esse fluxo pode ser verificado no arquivo [AuthorizationCodeFlow.php](example/AuthorizationCodeFlow.php). Você deverá ver na tela um JSON com os dados do usuário autenticado.
