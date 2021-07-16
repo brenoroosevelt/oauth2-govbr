@@ -25,15 +25,18 @@ composer brenoroosevelt/oauth2-govbr
 
 ## Exemplos de Uso
 #### Criando uma instância do provider para GovBr em ambiente de produção:
+
 ```php
 use BrenoRoosevelt\OAuth2\Client\GovBr;
 
 $govBr = new GovBr([
     'clientId'     => 'XXXXXXXX', // Client ID fornecido pelo GovBr
     'clientSecret' => 'YYYYYYYY', // Senha fornecida pelo provedor GovBr
-    'redirectUri'  => "https://seu-app-dominio.com.br/seu-login" // Url de redirecionamento
+    'redirectUri'  => "https://seu-app-dominio.com.br/seu-login", // Url de redirecionamento
+    'redirectUriLogout'   => "https://seu-app-dominio.com.br/seu-logout"
 ]);
 ```
+Atenção! Os parâmetros `clientId` e `clientSecret` acima são sigilosos, evite enviar esses valores para seu repositório git,prefira obtê-los usando `getenv(...)`.
 
 #### Obtendo a url de autorização:
 ```php
@@ -72,10 +75,6 @@ if ($avatar !== null) {
     $avatar->toHtml(['width' => 60]);
 }
 ```
-### Fluxo para _Authorization Code_
-Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_.  
-Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php). 
-
 ### Ambiente de Homologação
 Por padrão, o ambiente será de _produção_, mas você pode escolher o ambiente de _**homologação**_ (staging) solicitando uma instância da seguinte forma:
 ```php
@@ -86,18 +85,9 @@ $govBr = GovBr::staging([
     'redirectUri'  => "https://seu-app-dominio.com.br/seu-login" // Url de redirecionamento
 ]);
 ```
-
-```bash
-cd [app-name]
-composer start
-```
-
-Or using Docker: 
-```bash
-cd [app-name]
-docker-compose up -d
-```
-Depois disso, abra `http://localhost:8080` em seu browser.
+Junto com este pacote fornecemos um exemplo para o fluxo _Authorization Code_.  
+Por favor, veja o arquivo [AuthorizationCodeFlow.php](/example/AuthorizationCodeFlow.php).
+Além disso, diponibilizamos um servidor (containar docker) para que você possar executar esse fluxoemum ambiente de homolocação usando suas configuraçoes. Para isso, basta seguir as instruções desse [ROTEIRO](staging.md).  
 
 ## Contribuindo
 
