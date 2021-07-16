@@ -1,7 +1,7 @@
-# Ambiente de Homologação
+# Testando em Ambiente de Homologação
 
 Disponibilizamos um servidor para você testar a integração com o Gov.br em um ambiente de homologação. 
-É muito importante que você conheça o [Roteiro de Integração do Login Único](https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html), tenha preenchido o formulário e já tenha recebido as configurações referentes a sua aplicação.
+É muito importante que você conheça o [Roteiro de Integração do Login Único](https://manual-roteiro-integracao-login-unico.servicos.gov.br/pt/stable/index.html) do Gov.br, tenha preenchido o formulário e já tenha recebido as configurações referentes a sua aplicação.
 
 ### Requisitos
 Você vai precisar de: 
