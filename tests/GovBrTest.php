@@ -94,6 +94,26 @@ class GovBrTest extends TestCase
     /**
      * @test
      */
+    public function podeSobrescreverEAdicionarParametrosAoGerarUrlAutorizacao(): void
+    {
+        $url = $this->newGovBr()->getAuthorizationUrl(['nonce'=> '112abc', 'p1' => 'v1', 'state' => 'st1']);
+        $query = $this->urlQueryParams($url);
+
+        $this->assertArrayHasKey('response_type', $query);
+        $this->assertArrayHasKey('client_id', $query);
+        $this->assertArrayHasKey('scope', $query);
+        $this->assertArrayHasKey('redirect_uri', $query);
+        $this->assertArrayHasKey('nonce', $query);
+        $this->assertArrayHasKey('state', $query);
+        $this->assertArrayHasKey('p1', $query);
+        $this->assertEquals('v1', $query['p1']);
+        $this->assertEquals('112abc', $query['nonce']);
+        $this->assertEquals('st1', $query['state']);
+    }
+
+    /**
+     * @test
+     */
     public function deveGerarUmStateNaoVazio()
     {
         $govBr = $this->newGovBr();
