@@ -81,6 +81,11 @@ class GovBr extends AbstractProvider
         ];
     }
 
+    public function buildQueryString(array $params)
+    {
+        return http_build_query($params);
+    }
+
     public function getScopeSeparator(): string
     {
         return ' ';
