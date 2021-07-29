@@ -83,7 +83,7 @@ class GovBr extends AbstractProvider
 
     public function getScopeSeparator(): string
     {
-        return '+';
+        return ' ';
     }
 
     protected function getAuthorizationParameters(array $options): array
