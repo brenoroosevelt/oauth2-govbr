@@ -10,6 +10,8 @@ Este pacote fornece suporte OAuth 2.0 para Gov.br usando a biblioteca cliente do
 ## Requisitos
 Versões suportadas do PHP:
 
+* PHP 8.2
+* PHP 8.1
 * PHP 8.0
 * PHP 7.4
 * PHP 7.3
@@ -20,7 +22,7 @@ Versões suportadas do PHP:
 Via composer:
 
 ```bash
-composer brenoroosevelt/oauth2-govbr 
+composer require brenoroosevelt/oauth2-govbr 
 ```
 
 ## Exemplos de Uso
