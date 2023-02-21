@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace BrenoRoosevelt\OAuth2\Client\Test;
 
 use BrenoRoosevelt\OAuth2\Client\Avatar;
-use PHPStan\Testing\TestCase;
+use PHPUnit\Framework\TestCase;
 
 class AvatarTest extends TestCase
 {

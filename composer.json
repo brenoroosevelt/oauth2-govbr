@@ -27,7 +27,7 @@
     "league/oauth2-client": "^2"
   },
   "require-dev": {
-    "phpstan/phpstan": "^0.12.90",
+    "phpstan/phpstan": "@stable",
     "phpunit/phpunit": "^6 || ^9",
     "squizlabs/php_codesniffer": "3.5.*",
     "middlewares/utils": "^2 || ^3",
