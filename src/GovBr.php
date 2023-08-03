@@ -145,7 +145,7 @@ class GovBr extends AbstractProvider
             throw new UnexpectedValueException("Parâmetro redirectUriLogout não foi definido");
         }
 
-        $query  = $this->buildQueryString(['post_logout_redirect_uri' => $this->redirectUriLogout]);
+        $query  = $this->buildQueryString(['client_id'=>$this->clientId, 'post_logout_redirect_uri' => $this->redirectUriLogout]);
         return $this->appendQuery($this->urlLogout, $query);
     }
 
